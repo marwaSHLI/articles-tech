@@ -9,7 +9,7 @@ lang: fr
 # Si le dépôt s'appelle <votre-nom>.github.io : laissez baseurl vide.
 # Sinon : baseurl = "/<nom-du-depot>" (ex. "/blog-auth").
 url: "https://marwashli.github.io"
-baseurl: "articles-tech"
+baseurl: "/articles-tech"
 
 theme: minima
 markdown: kramdown
