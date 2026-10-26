@@ -3,13 +3,13 @@
 
 title: "Notes techniques"
 description: "Articles sur l'architecture, la sécurité et les API."
-author: "<Votre nom>"
+author: "marwaSHLI"
 lang: fr
 
 # Si le dépôt s'appelle <votre-nom>.github.io : laissez baseurl vide.
 # Sinon : baseurl = "/<nom-du-depot>" (ex. "/blog-auth").
-url: "https://<votre-nom>.github.io"
-baseurl: ""
+url: "https://marwashli.github.io"
+baseurl: "articles-tech"
 
 theme: minima
 markdown: kramdown
