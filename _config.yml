@@ -1,0 +1,32 @@
+# Configuration du site GitHub Pages (Jekyll)
+# Remplacez les valeurs entre <...> par les vôtres.
+
+title: "Notes techniques"
+description: "Articles sur l'architecture, la sécurité et les API."
+author: "<Votre nom>"
+lang: fr
+
+# Si le dépôt s'appelle <votre-nom>.github.io : laissez baseurl vide.
+# Sinon : baseurl = "/<nom-du-depot>" (ex. "/blog-auth").
+url: "https://<votre-nom>.github.io"
+baseurl: ""
+
+theme: minima
+markdown: kramdown
+kramdown:
+  input: GFM
+
+permalink: /:year/:month/:title/
+show_excerpts: true
+
+minima:
+  date_format: "%d/%m/%Y"
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
