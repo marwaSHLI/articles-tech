@@ -41,19 +41,19 @@ A2A est une **spécification ouverte** qui définit comment des agents IA indép
 
 L'idée centrale : chaque agent est traité comme une **boîte noire**. Un agent client n'a pas besoin de connaître le modèle, le prompt, les outils ou la mémoire de l'agent distant. Il lui confie une tâche, comme on confierait un dossier à un collègue d'un autre service, et récupère un résultat.
 
-> **En une phrase :** MCP relie un agent à ses *outils* ; A2A relie un agent à d'*autres agents*.
+> **En une phrase :** MCP relie un agent à ses _outils_ ; A2A relie un agent à d'_autres agents_.
 
 ---
 
 ## 2. Historique et gouvernance
 
-| Date | Étape |
-|---|---|
-| Avril 2025 | Annonce du protocole par Google, avec une cinquantaine de partenaires |
-| Juin 2025 | Don du projet à la **Linux Foundation**, qui en assure désormais la gouvernance neutre |
-| Été 2025 | Version 0.3 : ajout d'une liaison gRPC, signature des Agent Cards |
-| Mars 2026 | **Version 1.0 stable** |
-| 2026 | Support en production dans plusieurs plateformes (Microsoft Copilot Studio, Azure AI Foundry, Amazon Bedrock AgentCore, ServiceNow, Salesforce…) |
+| Date       | Étape                                                                                                                                            |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Avril 2025 | Annonce du protocole par Google, avec une cinquantaine de partenaires                                                                            |
+| Juin 2025  | Don du projet à la **Linux Foundation**, qui en assure désormais la gouvernance neutre                                                           |
+| Été 2025   | Version 0.3 : ajout d'une liaison gRPC, signature des Agent Cards                                                                                |
+| Mars 2026  | **Version 1.0 stable**                                                                                                                           |
+| 2026       | Support en production dans plusieurs plateformes (Microsoft Copilot Studio, Azure AI Foundry, Amazon Bedrock AgentCore, ServiceNow, Salesforce…) |
 
 La v1.0 a introduit plusieurs changements cassants par rapport aux versions 0.x (noms de méthodes, noms d'états, suppression de certains champs). Si vous lisez des tutoriels de 2025, vérifiez la version ciblée.
 
@@ -63,17 +63,17 @@ La v1.0 a introduit plusieurs changements cassants par rapport aux versions 0.x 
 
 A2A repose sur un petit vocabulaire :
 
-| Concept | Rôle |
-|---|---|
-| **Client agent** | L'agent qui initie la demande (souvent un orchestrateur). |
+| Concept                        | Rôle                                                                                                                                       |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Client agent**               | L'agent qui initie la demande (souvent un orchestrateur).                                                                                  |
 | **Remote agent (serveur A2A)** | L'agent qui reçoit et exécute la tâche. Les rôles sont fluides : un agent peut être client dans une interaction et serveur dans une autre. |
-| **Agent Card** | Fiche d'identité JSON publique de l'agent : nom, description, version, compétences, points d'accès, modes d'authentification. |
-| **Skill (compétence)** | Une capacité déclarée dans l'Agent Card (ex. `book_flight`), avec description, tags, exemples et formats acceptés. |
-| **Task (tâche)** | Unité de travail avec un identifiant et un état, générée par le serveur. Elle peut durer quelques millisecondes ou plusieurs jours. |
-| **Message** | Un tour de conversation, porté par un rôle (`user` ou `agent`). |
-| **Part** | Un morceau de contenu dans un message : texte, données JSON structurées, URL vers un fichier, ou octets bruts. |
-| **Artifact** | Le livrable produit par la tâche (un rapport, un JSON d'itinéraire, un PDF…), lui aussi composé de Parts. |
-| **Context** | Identifiant qui permet de regrouper plusieurs tâches et messages d'une même conversation. |
+| **Agent Card**                 | Fiche d'identité JSON publique de l'agent : nom, description, version, compétences, points d'accès, modes d'authentification.              |
+| **Skill (compétence)**         | Une capacité déclarée dans l'Agent Card (ex. `book_flight`), avec description, tags, exemples et formats acceptés.                         |
+| **Task (tâche)**               | Unité de travail avec un identifiant et un état, générée par le serveur. Elle peut durer quelques millisecondes ou plusieurs jours.        |
+| **Message**                    | Un tour de conversation, porté par un rôle (`user` ou `agent`).                                                                            |
+| **Part**                       | Un morceau de contenu dans un message : texte, données JSON structurées, URL vers un fichier, ou octets bruts.                             |
+| **Artifact**                   | Le livrable produit par la tâche (un rapport, un JSON d'itinéraire, un PDF…), lui aussi composé de Parts.                                  |
+| **Context**                    | Identifiant qui permet de regrouper plusieurs tâches et messages d'une même conversation.                                                  |
 
 ---
 
@@ -105,24 +105,7 @@ Chaque agent annonce dans son Agent Card la ou les liaisons qu'il supporte (cham
 
 Prenons un scénario concret : un **agent RH** doit organiser un entretien et délègue la réservation à un **agent de voyage** géré par une autre équipe.
 
-```mermaid
-sequenceDiagram
-    participant C as Agent client (RH)
-    participant S as Agent distant (Voyage)
-
-    C->>S: GET /.well-known/agent-card.json
-    S-->>C: Agent Card (skills, endpoints, auth)
-    Note over C: Vérifie la signature et la présence du skill
-    C->>C: Obtient un jeton OAuth2
-    C->>S: SendMessage (message + parts)
-    S-->>C: Task {id, state: SUBMITTED}
-    C->>S: SubscribeToTask (SSE)
-    S-->>C: statusUpdate: WORKING
-    S-->>C: statusUpdate: INPUT_REQUIRED
-    C->>S: SendMessage (précision, même taskId)
-    S-->>C: artifactUpdate: itinéraire
-    S-->>C: statusUpdate: COMPLETED (fin du flux)
-```
+![Séquence d'une délégation de tâche A2A : découverte, authentification, envoi, suivi, échange multi-tours et résultat]({{ '/assets/images/sequence-a2a.svg' | relative_url }})
 
 ### Étape 1 — Découverte via l'Agent Card
 
@@ -157,7 +140,9 @@ L'agent distant publie sa carte à une URL standard : `https://<domaine>/.well-k
       "name": "Réserver un vol",
       "description": "Réserve un vol à partir d'une origine, d'une destination et de dates.",
       "tags": ["voyage", "réservation"],
-      "examples": ["Réserve un Paris–Lyon le 12 novembre pour le matricule 4432"]
+      "examples": [
+        "Réserve un Paris–Lyon le 12 novembre pour le matricule 4432"
+      ]
     }
   ],
   "securitySchemes": {
@@ -181,7 +166,7 @@ La découverte peut aussi passer par un **registre** interne (catalogue d'agents
 
 ### Étape 2 — Authentification
 
-Les identifiants ne voyagent **jamais** dans le corps du message A2A : ils sont transmis dans les en-têtes HTTP (`Authorization: Bearer …`). Ici, le client effectue un flux OAuth2 *client credentials* auprès du `tokenUrl` déclaré.
+Les identifiants ne voyagent **jamais** dans le corps du message A2A : ils sont transmis dans les en-têtes HTTP (`Authorization: Bearer …`). Ici, le client effectue un flux OAuth2 _client credentials_ auprès du `tokenUrl` déclaré.
 
 ### Étape 3 — Envoi de la tâche (`SendMessage`)
 
@@ -202,7 +187,9 @@ Accept: application/json, text/event-stream
     "message": {
       "role": "ROLE_USER",
       "parts": [
-        { "text": "Réserve un vol direct Paris–Lyon le 12 novembre pour le matricule 4432." }
+        {
+          "text": "Réserve un vol direct Paris–Lyon le 12 novembre pour le matricule 4432."
+        }
       ]
     },
     "configuration": { "returnImmediately": true }
@@ -220,11 +207,11 @@ Points à noter :
 
 Trois mécanismes, selon la durée et la topologie :
 
-| Mécanisme | Quand l'utiliser | Opérations |
-|---|---|---|
-| **Polling** | Tâches courtes, client simple | `GetTask` à intervalle régulier |
-| **Streaming SSE** | Le client reste connecté et veut des mises à jour en temps réel | `SendStreamingMessage` (envoi + flux) ou `SubscribeToTask` (s'abonner à une tâche existante) |
-| **Notifications push** | Tâches très longues, client déconnecté (mobile, serverless) | Le client enregistre un webhook ; le serveur y POSTe les mises à jour, authentifiées (JWT signé, HMAC ou mTLS) |
+| Mécanisme              | Quand l'utiliser                                                | Opérations                                                                                                     |
+| ---------------------- | --------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **Polling**            | Tâches courtes, client simple                                   | `GetTask` à intervalle régulier                                                                                |
+| **Streaming SSE**      | Le client reste connecté et veut des mises à jour en temps réel | `SendStreamingMessage` (envoi + flux) ou `SubscribeToTask` (s'abonner à une tâche existante)                   |
+| **Notifications push** | Tâches très longues, client déconnecté (mobile, serverless)     | Le client enregistre un webhook ; le serveur y POSTe les mises à jour, authentifiées (JWT signé, HMAC ou mTLS) |
 
 Exemple de flux SSE reçu :
 
@@ -294,34 +281,18 @@ print(status)
 
 ## 6. Cycle de vie d'une tâche
 
-```mermaid
-stateDiagram-v2
-    [*] --> SUBMITTED
-    SUBMITTED --> WORKING
-    SUBMITTED --> REJECTED
-    WORKING --> INPUT_REQUIRED
-    WORKING --> AUTH_REQUIRED
-    INPUT_REQUIRED --> WORKING
-    AUTH_REQUIRED --> WORKING
-    WORKING --> COMPLETED
-    WORKING --> FAILED
-    WORKING --> CANCELED
-    COMPLETED --> [*]
-    FAILED --> [*]
-    CANCELED --> [*]
-    REJECTED --> [*]
-```
+![Cycle de vie d'une tâche A2A : états en cours, interrompus et terminaux]({{ '/assets/images/cycle-de-vie-tache.svg' | relative_url }})
 
-| État (v1.0) | Catégorie | Signification |
-|---|---|---|
-| `TASK_STATE_SUBMITTED` | en cours | Acceptée, pas encore démarrée |
-| `TASK_STATE_WORKING` | en cours | Traitement actif |
-| `TASK_STATE_INPUT_REQUIRED` | interrompue | En attente d'une information du client |
-| `TASK_STATE_AUTH_REQUIRED` | interrompue | Le client doit fournir des identifiants supplémentaires |
-| `TASK_STATE_COMPLETED` | terminale | Terminée avec succès |
-| `TASK_STATE_FAILED` | terminale | Erreur irrécupérable |
-| `TASK_STATE_CANCELED` | terminale | Annulée (souvent via `CancelTask`) |
-| `TASK_STATE_REJECTED` | terminale | Refusée par l'agent (politique, quota, capacité) |
+| État (v1.0)                 | Catégorie   | Signification                                           |
+| --------------------------- | ----------- | ------------------------------------------------------- |
+| `TASK_STATE_SUBMITTED`      | en cours    | Acceptée, pas encore démarrée                           |
+| `TASK_STATE_WORKING`        | en cours    | Traitement actif                                        |
+| `TASK_STATE_INPUT_REQUIRED` | interrompue | En attente d'une information du client                  |
+| `TASK_STATE_AUTH_REQUIRED`  | interrompue | Le client doit fournir des identifiants supplémentaires |
+| `TASK_STATE_COMPLETED`      | terminale   | Terminée avec succès                                    |
+| `TASK_STATE_FAILED`         | terminale   | Erreur irrécupérable                                    |
+| `TASK_STATE_CANCELED`       | terminale   | Annulée (souvent via `CancelTask`)                      |
+| `TASK_STATE_REJECTED`       | terminale   | Refusée par l'agent (politique, quota, capacité)        |
 
 ---
 
@@ -343,29 +314,29 @@ Pour un niveau d'assurance élevé : combiner mTLS et OAuth2, ou utiliser des je
 
 ### Rappel : qu'est-ce que MCP ?
 
-**MCP (Model Context Protocol)**, lancé par Anthropic fin 2024 et désormais largement adopté, standardise la connexion entre une application IA (le *client/host*) et des **serveurs** qui exposent des **outils** (tools), des **ressources** (données) et des **prompts**. Il fonctionne sur JSON-RPC 2.0, en local via `stdio` ou à distance via HTTP. Ses spécifications sont nommées par date ; la révision **2026-07-28** a notamment rendu le protocole **sans état** (suppression des sessions et de la poignée de main d'initialisation), ce qui facilite le déploiement horizontal des serveurs.
+**MCP (Model Context Protocol)**, lancé par Anthropic fin 2024 et désormais largement adopté, standardise la connexion entre une application IA (le _client/host_) et des **serveurs** qui exposent des **outils** (tools), des **ressources** (données) et des **prompts**. Il fonctionne sur JSON-RPC 2.0, en local via `stdio` ou à distance via HTTP. Ses spécifications sont nommées par date ; la révision **2026-07-28** a notamment rendu le protocole **sans état** (suppression des sessions et de la poignée de main d'initialisation), ce qui facilite le déploiement horizontal des serveurs.
 
 ### Tableau comparatif
 
-| Critère | **A2A** | **MCP** |
-|---|---|---|
-| **Objet** | Faire collaborer des agents autonomes entre eux | Donner à un agent l'accès à des outils et des données |
-| **Analogie** | Un collègue à qui l'on délègue un dossier | Une boîte à outils que l'on manipule soi-même |
-| **Nature de l'interlocuteur** | Opaque, autonome, raisonne par lui-même | Fonction déterministe ou source de données exposée |
-| **Unité d'échange** | Tâche (`Task`) avec état et cycle de vie | Appel d'outil / lecture de ressource |
-| **Durée typique** | Secondes à jours, multi-tours | Généralement courte, requête/réponse |
-| **Interaction** | Négociation possible (`INPUT_REQUIRED`, `AUTH_REQUIRED`) | Le modèle appelle, l'outil répond |
-| **Découverte** | Agent Card publique (`/.well-known/agent-card.json`), registres | Listing des outils/ressources auprès du serveur connecté |
-| **Transports** | JSON-RPC 2.0, gRPC, HTTP+JSON | JSON-RPC 2.0 sur stdio ou HTTP |
-| **Asynchrone / long** | Natif : SSE, notifications push par webhook | Possible mais moins central |
-| **Contenus** | Multimodal via Parts (texte, JSON, fichiers, octets) | Résultats structurés, texte, images, ressources |
-| **Topologie** | Pair à pair, rôles client/serveur interchangeables | Hôte → client → serveur |
-| **Origine / gouvernance** | Google → Linux Foundation | Anthropic → gouvernance ouverte de la communauté MCP |
-| **Maturité (oct. 2026)** | v1.0 stable (mars 2026) | Révision 2026-07-28 stable |
+| Critère                       | **A2A**                                                         | **MCP**                                                  |
+| ----------------------------- | --------------------------------------------------------------- | -------------------------------------------------------- |
+| **Objet**                     | Faire collaborer des agents autonomes entre eux                 | Donner à un agent l'accès à des outils et des données    |
+| **Analogie**                  | Un collègue à qui l'on délègue un dossier                       | Une boîte à outils que l'on manipule soi-même            |
+| **Nature de l'interlocuteur** | Opaque, autonome, raisonne par lui-même                         | Fonction déterministe ou source de données exposée       |
+| **Unité d'échange**           | Tâche (`Task`) avec état et cycle de vie                        | Appel d'outil / lecture de ressource                     |
+| **Durée typique**             | Secondes à jours, multi-tours                                   | Généralement courte, requête/réponse                     |
+| **Interaction**               | Négociation possible (`INPUT_REQUIRED`, `AUTH_REQUIRED`)        | Le modèle appelle, l'outil répond                        |
+| **Découverte**                | Agent Card publique (`/.well-known/agent-card.json`), registres | Listing des outils/ressources auprès du serveur connecté |
+| **Transports**                | JSON-RPC 2.0, gRPC, HTTP+JSON                                   | JSON-RPC 2.0 sur stdio ou HTTP                           |
+| **Asynchrone / long**         | Natif : SSE, notifications push par webhook                     | Possible mais moins central                              |
+| **Contenus**                  | Multimodal via Parts (texte, JSON, fichiers, octets)            | Résultats structurés, texte, images, ressources          |
+| **Topologie**                 | Pair à pair, rôles client/serveur interchangeables              | Hôte → client → serveur                                  |
+| **Origine / gouvernance**     | Google → Linux Foundation                                       | Anthropic → gouvernance ouverte de la communauté MCP     |
+| **Maturité (oct. 2026)**      | v1.0 stable (mars 2026)                                         | Révision 2026-07-28 stable                               |
 
 ### La bonne question à se poser
 
-> *« Est-ce que je veux **exécuter une action précise** ou **confier un objectif** à quelqu'un qui saura s'organiser ? »*
+> _« Est-ce que je veux **exécuter une action précise** ou **confier un objectif** à quelqu'un qui saura s'organiser ? »_
 
 - **Action précise et déterministe** (requête SQL, lecture d'un fichier, appel d'API météo) → **MCP**.
 - **Objectif à atteindre** par un système qui raisonne, peut poser des questions, et dont on ne veut pas connaître l'implémentation → **A2A**.
@@ -378,16 +349,7 @@ Il existe une zone grise : on peut exposer un agent complet comme un « outil »
 
 Les deux protocoles sont **complémentaires** et forment ensemble la pile de communication des systèmes multi-agents :
 
-```mermaid
-flowchart LR
-    U[Utilisateur] --> O[Agent orchestrateur]
-    O -- A2A --> R[Agent RH]
-    O -- A2A --> V[Agent Voyage]
-    R -- MCP --> SIRH[(SIRH)]
-    R -- MCP --> CAL[Agenda]
-    V -- MCP --> GDS[API compagnies aériennes]
-    V -- MCP --> NDF[Outil notes de frais]
-```
+![Un orchestrateur délègue via A2A à deux agents, qui utilisent chacun leurs outils via MCP]({{ '/assets/images/a2a-mcp-ensemble.svg' | relative_url }})
 
 **Scénario :**
 
@@ -404,7 +366,7 @@ Règle pratique : **A2A entre agents, MCP entre un agent et ses outils.**
 
 **Limites à connaître :**
 
-- **Schéma des données par skill** : un skill déclare accepter `application/json`, mais la spécification ne standardise pas le schéma exact attendu. Solution : publier un JSON Schema dans la description du skill ou via une *Extension* déclarée dans l'Agent Card.
+- **Schéma des données par skill** : un skill déclare accepter `application/json`, mais la spécification ne standardise pas le schéma exact attendu. Solution : publier un JSON Schema dans la description du skill ou via une _Extension_ déclarée dans l'Agent Card.
 - **Réduction des droits en cascade** : A2A dit comment transmettre des identifiants, pas comment les restreindre lorsqu'un orchestrateur très privilégié délègue à un agent moins privilégié. Solution : OAuth 2.0 Token Exchange (RFC 8693) pour émettre des jetons courts et ciblés.
 - **Registre non standardisé** : la découverte via un catalogue central reste à construire soi-même.
 - **Migration 0.x → 1.0** : noms de méthodes (`message/send` → `SendMessage`), noms d'états préfixés, disparition des champs `kind` et `final`.

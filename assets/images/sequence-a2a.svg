@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 722" width="820" height="722" role="img" aria-label="Séquence d&#x27;une délégation de tâche A2A">
+<title>Séquence d&#x27;une délégation de tâche A2A</title>
+<defs>
+<marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker>
+<marker id="a-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0f766e"/></marker>
+<marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c2410c"/></marker>
+<marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2937"/></marker>
+<marker id="a-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker>
+</defs>
+<rect width="820" height="722" fill="#ffffff"/>
+<rect x="130" y="20" width="200" height="46" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="230" y="41" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" fill="#2563eb" text-anchor="middle" font-weight="bold" >Agent client</text>
+<text x="230" y="58" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="normal" >(RH)</text>
+<rect x="130" y="660" width="200" height="46" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="230" y="681" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" fill="#2563eb" text-anchor="middle" font-weight="bold" >Agent client</text>
+<text x="230" y="698" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="normal" >(RH)</text>
+<line x1="230" y1="66" x2="230" y2="660" stroke="#d1d5db" stroke-width="2" stroke-dasharray="6 5"/>
+<rect x="550" y="20" width="200" height="46" rx="10" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.5"/>
+<text x="650" y="41" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" fill="#0f766e" text-anchor="middle" font-weight="bold" >Agent distant</text>
+<text x="650" y="58" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#0f766e" text-anchor="middle" font-weight="normal" >(Voyage)</text>
+<rect x="550" y="660" width="200" height="46" rx="10" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.5"/>
+<text x="650" y="681" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" fill="#0f766e" text-anchor="middle" font-weight="bold" >Agent distant</text>
+<text x="650" y="698" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#0f766e" text-anchor="middle" font-weight="normal" >(Voyage)</text>
+<line x1="650" y1="66" x2="650" y2="660" stroke="#d1d5db" stroke-width="2" stroke-dasharray="6 5"/>
+<circle cx="34" cy="100" r="13" fill="#1f2937"/><text x="34" y="105" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold" >1</text>
+<line x1="50" y1="100" x2="122" y2="100" stroke="#d1d5db" stroke-width="1"/>
+<line x1="230" y1="100" x2="646" y2="100" stroke="#2563eb" stroke-width="2" marker-end="url(#a-blue)"/>
+<text x="440.0" y="92" font-family="Consolas, Menlo, monospace" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="normal" >GET /.well-known/agent-card.json</text>
+<line x1="650" y1="146" x2="234" y2="146" stroke="#0f766e" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a-teal)"/>
+<text x="440.0" y="138" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="normal" >Agent Card (skills, endpoints, auth)</text>
+<rect x="80" y="175" width="300" height="32" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.2"/>
+<text x="230" y="196" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="middle" font-weight="normal" >Vérifie la signature et la présence du skill</text>
+<circle cx="34" cy="238" r="13" fill="#1f2937"/><text x="34" y="243" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold" >2</text>
+<line x1="50" y1="238" x2="122" y2="238" stroke="#d1d5db" stroke-width="1"/>
+<path d="M230 228 h60 v22 h-56" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#a-blue)"/>
+<text x="302" y="243" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="14" fill="#1f2937" text-anchor="start" font-weight="normal" >Obtient un jeton OAuth2</text>
+<circle cx="34" cy="284" r="13" fill="#1f2937"/><text x="34" y="289" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold" >3</text>
+<line x1="50" y1="284" x2="122" y2="284" stroke="#d1d5db" stroke-width="1"/>
+<line x1="230" y1="284" x2="646" y2="284" stroke="#2563eb" stroke-width="2" marker-end="url(#a-blue)"/>
+<text x="440.0" y="276" font-family="Consolas, Menlo, monospace" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="normal" >SendMessage (message + parts)</text>
+<line x1="650" y1="330" x2="234" y2="330" stroke="#0f766e" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a-teal)"/>
+<text x="440.0" y="322" font-family="Consolas, Menlo, monospace" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="normal" >Task { id, state: SUBMITTED }</text>
+<circle cx="34" cy="376" r="13" fill="#1f2937"/><text x="34" y="381" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold" >4</text>
+<line x1="50" y1="376" x2="122" y2="376" stroke="#d1d5db" stroke-width="1"/>
+<line x1="230" y1="376" x2="646" y2="376" stroke="#2563eb" stroke-width="2" marker-end="url(#a-blue)"/>
+<text x="440.0" y="368" font-family="Consolas, Menlo, monospace" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="normal" >SubscribeToTask (flux SSE)</text>
+<line x1="650" y1="422" x2="234" y2="422" stroke="#0f766e" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a-teal)"/>
+<text x="440.0" y="414" font-family="Consolas, Menlo, monospace" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="normal" >statusUpdate : WORKING</text>
+<line x1="650" y1="468" x2="234" y2="468" stroke="#0f766e" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a-teal)"/>
+<text x="440.0" y="460" font-family="Consolas, Menlo, monospace" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="normal" >statusUpdate : INPUT_REQUIRED</text>
+<circle cx="34" cy="514" r="13" fill="#1f2937"/><text x="34" y="519" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold" >5</text>
+<line x1="50" y1="514" x2="122" y2="514" stroke="#d1d5db" stroke-width="1"/>
+<line x1="230" y1="514" x2="646" y2="514" stroke="#2563eb" stroke-width="2" marker-end="url(#a-blue)"/>
+<text x="440.0" y="506" font-family="Consolas, Menlo, monospace" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="normal" >SendMessage (précision, même taskId)</text>
+<circle cx="34" cy="560" r="13" fill="#1f2937"/><text x="34" y="565" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#fff" text-anchor="middle" font-weight="bold" >6</text>
+<line x1="50" y1="560" x2="122" y2="560" stroke="#d1d5db" stroke-width="1"/>
+<line x1="650" y1="560" x2="234" y2="560" stroke="#0f766e" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a-teal)"/>
+<text x="440.0" y="552" font-family="Consolas, Menlo, monospace" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="normal" >artifactUpdate : itinéraire</text>
+<line x1="650" y1="606" x2="234" y2="606" stroke="#0f766e" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a-teal)"/>
+<text x="440.0" y="598" font-family="Consolas, Menlo, monospace" font-size="14" fill="#1f2937" text-anchor="middle" font-weight="normal" >statusUpdate : COMPLETED (fin du flux)</text>
+</svg>
