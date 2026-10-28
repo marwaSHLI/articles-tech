@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 440" width="860" height="440" role="img" aria-label="Cycle de vie d&#x27;une tâche A2A">
-<title>Cycle de vie d&#x27;une tâche A2A</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 440" width="860" height="440" role="img" aria-label="A2A task lifecycle">
+<title>A2A task lifecycle</title>
 <defs>
 <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker>
 <marker id="a-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0f766e"/></marker>
@@ -8,10 +8,10 @@
 <marker id="a-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker>
 </defs>
 <rect width="860" height="440" fill="#ffffff"/>
-<text x="30" y="34" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="start" font-weight="bold" >● En cours</text>
-<text x="140" y="34" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="start" font-weight="bold" >● Interrompue</text>
-<text x="275" y="34" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="start" font-weight="bold" >● Terminale (succès)</text>
-<text x="450" y="34" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#b91c1c" text-anchor="start" font-weight="bold" >● Terminale (échec / refus)</text>
+<text x="30" y="34" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="start" font-weight="bold" >● In progress</text>
+<text x="140" y="34" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="start" font-weight="bold" >● Interrupted</text>
+<text x="275" y="34" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#15803d" text-anchor="start" font-weight="bold" >● Terminal (success)</text>
+<text x="450" y="34" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#b91c1c" text-anchor="start" font-weight="bold" >● Terminal (failure / refusal)</text>
 <circle cx="40" cy="150" r="9" fill="#1f2937"/>
 <line x1="49" y1="150" x2="93" y2="150" stroke="#1f2937" stroke-width="1.8" marker-end="url(#a-ink)"/>
 <rect x="95.0" y="128" width="170" height="44" rx="22" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
@@ -39,5 +39,5 @@
 <line x1="430" y1="172" x2="385" y2="336" stroke="#6b7280" stroke-width="1.8" marker-end="url(#a-muted)"/>
 <line x1="470" y1="172" x2="560" y2="336" stroke="#6b7280" stroke-width="1.8" marker-end="url(#a-muted)"/>
 <line x1="500" y1="170" x2="725" y2="336" stroke="#6b7280" stroke-width="1.8" marker-end="url(#a-muted)"/>
-<text x="430" y="420" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal" >Un état terminal ferme le flux SSE : la tâche ne peut plus évoluer.</text>
+<text x="430" y="420" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" font-weight="normal" >A terminal state closes the SSE stream: the task can no longer change.</text>
 </svg>

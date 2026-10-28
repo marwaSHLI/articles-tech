@@ -26,6 +26,21 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
+# Bilingue : les articles sont en français par défaut.
+# Un article anglais déclare `lang: en` ; ses deux versions partagent le même `ref`.
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      lang: fr
+
+# Pages affichées dans le menu du haut.
+header_pages:
+  - index.html
+  - about.md
+  - en/index.html
+
 exclude:
   - README.md
   - Gemfile

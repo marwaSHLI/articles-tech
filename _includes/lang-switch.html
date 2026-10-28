@@ -1,0 +1,14 @@
+{%- comment -%}
+  Lien vers la traduction de l'article courant : l'autre article qui a le même `ref`.
+  N'affiche rien si la traduction n'existe pas (encore).
+{%- endcomment -%}
+{%- if page.ref -%}
+  {%- assign translations = site.posts | where: "ref", page.ref | where_exp: "p", "p.lang != page.lang" -%}
+  {%- for t in translations -%}
+  <p class="lang-switch">
+    <a href="{{ t.url | relative_url }}" hreflang="{{ t.lang }}" lang="{{ t.lang }}">
+      {%- if t.lang == "en" -%}Read this article in English{%- else -%}Lire cet article en français{%- endif -%}
+    </a>
+  </p>
+  {%- endfor -%}
+{%- endif -%}

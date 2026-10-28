@@ -2,6 +2,7 @@
 layout: post
 title: "Du besoin métier au frontend : maquettes et code générés par l'IA avec le Specification-Driven Design"
 date: 2026-10-28
+ref: sdd
 categories: [ia, design, frontend]
 tags:
   [

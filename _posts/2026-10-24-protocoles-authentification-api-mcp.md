@@ -2,6 +2,7 @@
 layout: post
 title: "Les protocoles d'authentification pour les applications : API REST, serveurs MCP et au-delà"
 date: 2026-10-24
+ref: auth-api-mcp
 description: "Basic Auth, clés d'API, JWT, OAuth 2.1, OpenID Connect, SAML, mTLS, DPoP et le profil d'autorisation des serveurs MCP : comment choisir."
 tags: [sécurité, authentification, oauth, api, mcp]
 ---

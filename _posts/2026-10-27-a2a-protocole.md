@@ -2,6 +2,7 @@
 layout: post
 title: "Le protocole A2A : fonctionnement, mode opératoire et comparaison avec MCP"
 date: 2026-10-27
+ref: a2a
 categories: [ia, agents, protocoles]
 tags: [A2A, MCP, agents, interopérabilité, LLM]
 ---
