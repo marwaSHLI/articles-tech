@@ -1,18 +1,28 @@
 ---
 layout: post
 title: "Du besoin métier au frontend : maquettes et code générés par l'IA avec le Specification-Driven Design"
-date: 2026-10-27
+date: 2026-10-28
 categories: [ia, design, frontend]
-tags: [SDD, spec-driven, IA, maquettes, design system, design tokens, frontend, agents]
+tags:
+  [
+    SDD,
+    spec-driven,
+    IA,
+    maquettes,
+    design system,
+    design tokens,
+    frontend,
+    agents,
+  ]
 ---
 
 # Du besoin métier au frontend : maquettes et code générés par l'IA avec le Specification-Driven Design
 
 « Il nous faudrait un écran pour que les collaborateurs posent leurs congés et que les managers les valident. »
 
-Il y a quelques années, cette phrase déclenchait des semaines d'ateliers, de wireframes, d'allers-retours avec les designers puis de développement. Aujourd'hui, un agent IA peut produire en quelques minutes des maquettes crédibles et le code React qui va avec. Le problème n'est plus de *produire* : c'est de produire **la bonne chose**, de façon **cohérente**, **reproductible** et **maîtrisée**.
+Il y a quelques années, cette phrase déclenchait des semaines d'ateliers, de wireframes, d'allers-retours avec les designers puis de développement. Aujourd'hui, un agent IA peut produire en quelques minutes des maquettes crédibles et le code React qui va avec. Le problème n'est plus de _produire_ : c'est de produire **la bonne chose**, de façon **cohérente**, **reproductible** et **maîtrisée**.
 
-C'est exactement ce que propose le **Specification-Driven Design** (ou *Spec-Driven Development*, SDD) : faire de la spécification, et non du prompt ou du code, la source de vérité de toute la chaîne. Cet article montre comment l'appliquer de bout en bout, du besoin métier jusqu'au frontend, avec une attention particulière aux bénéfices réels et aux enjeux qu'il ne faut pas ignorer.
+C'est exactement ce que propose le **Specification-Driven Design** (ou _Spec-Driven Development_, SDD) : faire de la spécification, et non du prompt ou du code, la source de vérité de toute la chaîne. Cet article montre comment l'appliquer de bout en bout, du besoin métier jusqu'au frontend, avec une attention particulière aux bénéfices réels et aux enjeux qu'il ne faut pas ignorer.
 
 ---
 
@@ -34,7 +44,7 @@ C'est exactement ce que propose le **Specification-Driven Design** (ou *Spec-Dri
 
 ## 1. Le problème du « vibe coding »
 
-La manière la plus intuitive d'utiliser l'IA pour créer une interface consiste à décrire ce qu'on veut dans un chat, regarder le résultat, puis corriger par petites touches : « mets le bouton à droite », « non, plus clair », « ajoute un filtre ». C'est ce qu'on appelle familièrement le *vibe coding*.
+La manière la plus intuitive d'utiliser l'IA pour créer une interface consiste à décrire ce qu'on veut dans un chat, regarder le résultat, puis corriger par petites touches : « mets le bouton à droite », « non, plus clair », « ajoute un filtre ». C'est ce qu'on appelle familièrement le _vibe coding_.
 
 Ça fonctionne très bien pour un prototype jetable. Ça fonctionne beaucoup moins bien dès qu'on vise un produit réel :
 
@@ -52,17 +62,17 @@ Le Specification-Driven Design répond à ces cinq problèmes par une idée simp
 
 Le SDD repose sur trois convictions.
 
-**1. La spécification est la source de vérité.** Les maquettes et le code sont des *artefacts dérivés*, régénérables à partir de la spec. Si le résultat ne convient pas, on ne retouche pas le code à la main : on corrige la spec et on régénère.
+**1. La spécification est la source de vérité.** Les maquettes et le code sont des _artefacts dérivés_, régénérables à partir de la spec. Si le résultat ne convient pas, on ne retouche pas le code à la main : on corrige la spec et on régénère.
 
 **2. La spécification est structurée et progressive.** On ne passe pas d'une phrase métier à du code en une étape. On raffine par couches successives, chacune lisible et validable par la bonne personne :
 
-| Couche | Question à laquelle elle répond | Relue par |
-|---|---|---|
-| Besoin métier | Pourquoi ? Pour qui ? | Métier, product owner |
-| Spec fonctionnelle | Quoi ? Selon quelles règles ? | Product owner, métier |
-| Spec d'expérience | Comment l'utilisateur s'y prend-il ? | UX designer |
-| Design system | À quoi cela ressemble-t-il ? | UI designer |
-| Plan technique | Avec quelle architecture ? | Tech lead |
+| Couche             | Question à laquelle elle répond      | Relue par             |
+| ------------------ | ------------------------------------ | --------------------- |
+| Besoin métier      | Pourquoi ? Pour qui ?                | Métier, product owner |
+| Spec fonctionnelle | Quoi ? Selon quelles règles ?        | Product owner, métier |
+| Spec d'expérience  | Comment l'utilisateur s'y prend-il ? | UX designer           |
+| Design system      | À quoi cela ressemble-t-il ?         | UI designer           |
+| Plan technique     | Avec quelle architecture ?           | Tech lead             |
 
 **3. La spécification vit dans le dépôt Git.** Ce sont des fichiers Markdown, JSON ou YAML, versionnés à côté du code, soumis aux mêmes pull requests et à la même revue. L'historique Git devient l'historique des décisions.
 
@@ -90,23 +100,27 @@ Fil rouge : une application interne de **demande de congés**.
 
 ### Étape 0 — Poser la « constitution » du projet
 
-Avant toute fonctionnalité, on écrit une fois pour toutes les règles non négociables que l'IA devra respecter à chaque génération. Spec Kit appelle ce fichier la *constitution* ; d'autres outils parlent de *steering* ou de règles projet.
+Avant toute fonctionnalité, on écrit une fois pour toutes les règles non négociables que l'IA devra respecter à chaque génération. Spec Kit appelle ce fichier la _constitution_ ; d'autres outils parlent de _steering_ ou de règles projet.
 
 ```markdown
 <!-- specs/constitution.md -->
+
 # Constitution du projet
 
 ## Stack
+
 - React 19 + TypeScript strict, Vite, React Router.
 - Composants UI : uniquement ceux de `src/design-system/`. Aucun style en dur.
 - Appels API : uniquement via le client généré depuis `contracts/openapi.yaml`.
 
 ## Qualité
+
 - Accessibilité : WCAG 2.2 niveau AA obligatoire.
 - Chaque écran gère explicitement les états : chargement, vide, erreur, succès.
 - Chaque critère d'acceptation de la spec a au moins un test end-to-end.
 
 ## Interdits
+
 - Pas de nouvelle dépendance npm sans mention dans le plan et validation humaine.
 - Pas de donnée personnelle réelle dans les fixtures et les maquettes.
 - Pas de secret ni de clé d'API dans le code.
@@ -120,6 +134,7 @@ Le point de départ reste un texte en langage naturel, écrit par le métier. Pa
 
 ```markdown
 <!-- specs/001-conges/besoin.md -->
+
 # Besoin : gestion des demandes de congés
 
 Aujourd'hui, les demandes de congés passent par e-mail et un tableur partagé.
@@ -127,6 +142,7 @@ Les managers perdent des demandes, les collaborateurs ne connaissent pas leur so
 et les RH ressaisissent tout en fin de mois.
 
 Nous voulons que :
+
 - un collaborateur puisse poser une demande et voir son solde en temps réel ;
 - son manager soit notifié et puisse valider ou refuser en un clic ;
 - les RH puissent exporter les congés validés du mois.
@@ -137,18 +153,22 @@ Indicateur de succès : moins de 2 minutes pour poser une demande.
 
 ### Étape 2 — Générer puis clarifier la spec fonctionnelle
 
-On demande à l'agent de transformer le besoin en spécification structurée : rôles, user stories, règles métier, critères d'acceptation testables. Une notation contrainte aide énormément ; Kiro utilise par exemple la notation **EARS** (*Easy Approach to Requirements Syntax*), qui impose des formes comme « QUAND… LE SYSTÈME DOIT… ».
+On demande à l'agent de transformer le besoin en spécification structurée : rôles, user stories, règles métier, critères d'acceptation testables. Une notation contrainte aide énormément ; Kiro utilise par exemple la notation **EARS** (_Easy Approach to Requirements Syntax_), qui impose des formes comme « QUAND… LE SYSTÈME DOIT… ».
 
 ```markdown
 <!-- specs/001-conges/spec.md (extrait) -->
+
 ## Rôles
+
 - Collaborateur, Manager, RH.
 
 ## US-01 — Poser une demande
+
 En tant que collaborateur, je veux poser une demande de congés
 afin de planifier mon absence sans passer par e-mail.
 
 ### Critères d'acceptation
+
 - AC-01.1 QUAND le collaborateur ouvre le formulaire,
   LE SYSTÈME DOIT afficher son solde disponible par type de congé.
 - AC-01.2 SI la date de fin est antérieure à la date de début,
@@ -159,11 +179,12 @@ afin de planifier mon absence sans passer par e-mail.
   LE SYSTÈME DOIT afficher une confirmation et notifier le manager.
 
 ## Questions ouvertes
+
 - [ ] Les demi-journées sont-elles autorisées ?
 - [ ] Un manager peut-il valider sa propre demande ?
 ```
 
-La section **« Questions ouvertes »** est essentielle. Plutôt que de laisser l'IA trancher en silence, on lui demande explicitement de lister ses ambiguïtés : c'est l'étape *clarify* de Spec Kit. Le métier y répond, la spec est mise à jour, puis **validée** (première porte humaine).
+La section **« Questions ouvertes »** est essentielle. Plutôt que de laisser l'IA trancher en silence, on lui demande explicitement de lister ses ambiguïtés : c'est l'étape _clarify_ de Spec Kit. Le métier y répond, la spec est mise à jour, puis **validée** (première porte humaine).
 
 ### Étape 3 — Spécifier l'expérience
 
@@ -171,28 +192,33 @@ Cette couche décrit les parcours et les écrans **sans parler encore d'apparenc
 
 ```markdown
 <!-- specs/001-conges/ux.md (extrait) -->
+
 ## Parcours P1 — Poser une demande (collaborateur, mobile d'abord)
+
 Accueil → « Nouvelle demande » → Formulaire → Récapitulatif → Confirmation
 
 ## Écran E2 — Formulaire de demande
+
 Contenu :
-- Carte « Mon solde » (par type de congé)            → AC-01.1
+
+- Carte « Mon solde » (par type de congé) → AC-01.1
 - Type de congé (liste), date de début, date de fin, demi-journée (si validé)
 - Commentaire facultatif (500 caractères max)
-Actions : « Vérifier ma demande » (principale), « Annuler » (secondaire)
+  Actions : « Vérifier ma demande » (principale), « Annuler » (secondaire)
 
 États :
+
 - Chargement : squelette de la carte solde, formulaire désactivé
 - Erreur de chargement du solde : message + bouton « Réessayer »
-- Erreur de validation : message sous le champ, focus déplacé dessus  → AC-01.2
-- Dépassement de solde : bandeau d'avertissement non bloquant        → AC-01.3
+- Erreur de validation : message sous le champ, focus déplacé dessus → AC-01.2
+- Dépassement de solde : bandeau d'avertissement non bloquant → AC-01.3
 ```
 
 Remarquez la **traçabilité** : chaque élément d'écran renvoie au critère d'acceptation qui le justifie. C'est ce qui permettra plus tard de vérifier automatiquement que rien n'a été oublié.
 
 ### Étape 4 — Formaliser le design system
 
-Pour que l'IA ne réinvente pas un style à chaque écran, l'identité visuelle doit être **elle aussi une spécification**. Le format standard est celui des **design tokens** du W3C : la *Design Tokens Community Group* a publié en octobre 2025 la première version stable de sa spécification (2025.10), déjà prise en charge par Figma, Penpot, Sketch, Style Dictionary, Tokens Studio ou Terrazzo.
+Pour que l'IA ne réinvente pas un style à chaque écran, l'identité visuelle doit être **elle aussi une spécification**. Le format standard est celui des **design tokens** du W3C : la _Design Tokens Community Group_ a publié en octobre 2025 la première version stable de sa spécification (2025.10), déjà prise en charge par Figma, Penpot, Sketch, Style Dictionary, Tokens Studio ou Terrazzo.
 
 ```json
 {
@@ -200,13 +226,21 @@ Pour que l'IA ne réinvente pas un style à chaque écran, l'identité visuelle 
     "brand": {
       "primary": {
         "$type": "color",
-        "$value": { "colorSpace": "srgb", "components": [0.145, 0.388, 0.922], "hex": "#2563eb" }
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.145, 0.388, 0.922],
+          "hex": "#2563eb"
+        }
       }
     },
     "feedback": {
       "warning": {
         "$type": "color",
-        "$value": { "colorSpace": "srgb", "components": [0.706, 0.325, 0.035], "hex": "#b45309" }
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.706, 0.325, 0.035],
+          "hex": "#b45309"
+        }
       }
     }
   },
@@ -238,11 +272,12 @@ L'agent produit ensuite un **plan technique** qui respecte la constitution, puis
 
 ```markdown
 <!-- specs/001-conges/tasks.md (extrait) -->
+
 - [ ] T01 Générer le client API depuis contracts/openapi.yaml (endpoints /leaves, /balances)
 - [ ] T02 Créer la route /conges/nouvelle et le squelette de page (E2)
-- [ ] T03 Composant LeaveBalanceCard : états chargement / erreur / succès   (AC-01.1)
+- [ ] T03 Composant LeaveBalanceCard : états chargement / erreur / succès (AC-01.1)
 - [ ] T04 Formulaire : validation des dates, message d'erreur, gestion du focus (AC-01.2)
-- [ ] T05 Bandeau d'avertissement de dépassement de solde                  (AC-01.3)
+- [ ] T05 Bandeau d'avertissement de dépassement de solde (AC-01.3)
 - [ ] T06 Tests Playwright AC-01.1 → AC-01.4 + audit axe-core sur E2
 ```
 
@@ -260,24 +295,26 @@ La vérification ferme la boucle. Comme chaque critère d'acceptation est formul
 
 ```typescript
 // e2e/conges/us-01.spec.ts
-import { test, expect } from '@playwright/test';
-import AxeBuilder from '@axe-core/playwright';
+import { test, expect } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
 
-test('AC-01.2 — une date de fin antérieure bloque l\'envoi', async ({ page }) => {
-  await page.goto('/conges/nouvelle');
-  await page.getByLabel('Date de début').fill('2026-11-10');
-  await page.getByLabel('Date de fin').fill('2026-11-05');
-  await page.getByRole('button', { name: 'Vérifier ma demande' }).click();
+test("AC-01.2 — une date de fin antérieure bloque l'envoi", async ({
+  page,
+}) => {
+  await page.goto("/conges/nouvelle");
+  await page.getByLabel("Date de début").fill("2026-11-10");
+  await page.getByLabel("Date de fin").fill("2026-11-05");
+  await page.getByRole("button", { name: "Vérifier ma demande" }).click();
 
-  const fin = page.getByLabel('Date de fin');
-  await expect(fin).toHaveAttribute('aria-invalid', 'true');
+  const fin = page.getByLabel("Date de fin");
+  await expect(fin).toHaveAttribute("aria-invalid", "true");
   await expect(fin).toBeFocused();
 });
 
-test('E2 — aucune violation d\'accessibilité WCAG A/AA', async ({ page }) => {
-  await page.goto('/conges/nouvelle');
+test("E2 — aucune violation d'accessibilité WCAG A/AA", async ({ page }) => {
+  await page.goto("/conges/nouvelle");
   const results = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
     .analyze();
   expect(results.violations).toEqual([]);
 });
@@ -323,15 +360,15 @@ Chaque fonctionnalité a son dossier de specs numéroté ; une pull request cont
 
 L'écosystème évolue très vite ; ce panorama donne des repères par catégorie plutôt qu'un classement.
 
-| Besoin | Exemples d'outils | Remarques |
-|---|---|---|
-| Cadre SDD | GitHub Spec Kit, Kiro, OpenSpec, BMAD-METHOD, Tessl | Spec Kit est open source et fonctionne avec la plupart des agents ; Kiro est un IDE complet lié à l'écosystème AWS ; BMAD est plus lourd, pour de gros projets |
-| Agents de code | Claude Code, GitHub Copilot, Cursor, Codex, Gemini CLI | Exécutent les tâches, lisent la constitution |
-| Génération de maquettes | Figma Make, Google Stitch, Uizard, Visily, UX Pilot | Figma Make s'appuie sur vos bibliothèques ; Stitch reste un produit expérimental de Google Labs |
-| Génération d'interfaces en code | v0, Lovable, Bolt | Très rapides ; à encadrer pour respecter votre design system |
-| Design tokens | Style Dictionary, Tokens Studio, Terrazzo | Implémentations de référence du format DTCG |
-| Vérification | Playwright, axe-core, outils de régression visuelle | Indispensables pour fermer la boucle |
-| Connexion des outils | Serveurs MCP (outil de design, ticketing, dépôt) | Permettent à l'agent de lire et d'écrire dans vos outils |
+| Besoin                          | Exemples d'outils                                      | Remarques                                                                                                                                                      |
+| ------------------------------- | ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Cadre SDD                       | GitHub Spec Kit, Kiro, OpenSpec, BMAD-METHOD, Tessl    | Spec Kit est open source et fonctionne avec la plupart des agents ; Kiro est un IDE complet lié à l'écosystème AWS ; BMAD est plus lourd, pour de gros projets |
+| Agents de code                  | Claude Code, GitHub Copilot, Cursor, Codex, Gemini CLI | Exécutent les tâches, lisent la constitution                                                                                                                   |
+| Génération de maquettes         | Figma Make, Google Stitch, Uizard, Visily, UX Pilot    | Figma Make s'appuie sur vos bibliothèques ; Stitch reste un produit expérimental de Google Labs                                                                |
+| Génération d'interfaces en code | v0, Lovable, Bolt                                      | Très rapides ; à encadrer pour respecter votre design system                                                                                                   |
+| Design tokens                   | Style Dictionary, Tokens Studio, Terrazzo              | Implémentations de référence du format DTCG                                                                                                                    |
+| Vérification                    | Playwright, axe-core, outils de régression visuelle    | Indispensables pour fermer la boucle                                                                                                                           |
+| Connexion des outils            | Serveurs MCP (outil de design, ticketing, dépôt)       | Permettent à l'agent de lire et d'écrire dans vos outils                                                                                                       |
 
 Bon réflexe : choisir des outils qui stockent les specs **en clair dans le dépôt** (Markdown, JSON). C'est ce qui limite le verrouillage chez un fournisseur.
 
@@ -367,7 +404,7 @@ L'IA amplifie la qualité de la spec, dans les deux sens. Une spec ambiguë prod
 
 ### L'illusion du « totalement automatisé »
 
-La *production* peut être entièrement automatisée. La *décision* ne doit pas l'être. Une chaîne sans porte humaine validera elle-même ses propres erreurs : l'IA qui écrit la spec, génère le code et écrit les tests peut produire un ensemble parfaitement cohérent… et hors sujet. Il faut au minimum un humain qui valide la spec, un qui valide les maquettes, et une revue du code.
+La _production_ peut être entièrement automatisée. La _décision_ ne doit pas l'être. Une chaîne sans porte humaine validera elle-même ses propres erreurs : l'IA qui écrit la spec, génère le code et écrit les tests peut produire un ensemble parfaitement cohérent… et hors sujet. Il faut au minimum un humain qui valide la spec, un qui valide les maquettes, et une revue du code.
 
 ### Le risque de waterfall déguisé
 
@@ -379,7 +416,7 @@ Si quelqu'un corrige « juste un détail » directement dans le code, la spec ce
 
 ### L'accessibilité n'est pas acquise
 
-Le code généré par IA reproduit les défauts fréquents du web : libellés manquants, contrastes insuffisants, navigation clavier cassée, rôles ARIA superflus. Les audits automatiques n'en détectent qu'une partie ; des tests avec des technologies d'assistance et, idéalement, avec des utilisateurs concernés restent nécessaires. C'est aussi un enjeu réglementaire : en Europe, l'*European Accessibility Act* s'applique depuis juin 2025 à de nombreux services numériques grand public.
+Le code généré par IA reproduit les défauts fréquents du web : libellés manquants, contrastes insuffisants, navigation clavier cassée, rôles ARIA superflus. Les audits automatiques n'en détectent qu'une partie ; des tests avec des technologies d'assistance et, idéalement, avec des utilisateurs concernés restent nécessaires. C'est aussi un enjeu réglementaire : en Europe, l'_European Accessibility Act_ s'applique depuis juin 2025 à de nombreux services numériques grand public.
 
 ### Sécurité et chaîne d'approvisionnement
 
@@ -413,17 +450,17 @@ Certains outils stockent les specs dans un format propriétaire, imposent leur I
 
 ## 9. Où placer l'humain : la grille de contrôle
 
-| Étape | Produit par | Validé par | Critère de passage |
-|---|---|---|---|
-| Constitution | Tech lead + design lead (avec l'IA) | Équipe | Règles connues et acceptées |
-| Besoin métier | Métier | Product owner | Le « pourquoi » et l'indicateur de succès sont clairs |
-| Spec fonctionnelle | IA, à partir du besoin | **Métier + PO** | Aucune question ouverte, critères testables |
-| Spec d'expérience | IA + UX designer | **UX designer** | Tous les états décrits, traçabilité vers les critères |
-| Design system | Designer (outils IA en appui) | **Design lead** | Tokens au format standard, contrastes conformes |
-| Maquettes | IA | **Designer + métier** (+ utilisateurs si possible) | Parcours validés, aucun composant hors catalogue |
-| Plan et tâches | IA | **Tech lead** | Respect de la constitution, pas de dépendance non justifiée |
-| Code | IA | **Revue de code** | Sécurité, erreurs, performance |
-| Vérification | Automatique | CI | Tous les critères couverts, zéro violation a11y bloquante |
+| Étape              | Produit par                         | Validé par                                         | Critère de passage                                          |
+| ------------------ | ----------------------------------- | -------------------------------------------------- | ----------------------------------------------------------- |
+| Constitution       | Tech lead + design lead (avec l'IA) | Équipe                                             | Règles connues et acceptées                                 |
+| Besoin métier      | Métier                              | Product owner                                      | Le « pourquoi » et l'indicateur de succès sont clairs       |
+| Spec fonctionnelle | IA, à partir du besoin              | **Métier + PO**                                    | Aucune question ouverte, critères testables                 |
+| Spec d'expérience  | IA + UX designer                    | **UX designer**                                    | Tous les états décrits, traçabilité vers les critères       |
+| Design system      | Designer (outils IA en appui)       | **Design lead**                                    | Tokens au format standard, contrastes conformes             |
+| Maquettes          | IA                                  | **Designer + métier** (+ utilisateurs si possible) | Parcours validés, aucun composant hors catalogue            |
+| Plan et tâches     | IA                                  | **Tech lead**                                      | Respect de la constitution, pas de dépendance non justifiée |
+| Code               | IA                                  | **Revue de code**                                  | Sécurité, erreurs, performance                              |
+| Vérification       | Automatique                         | CI                                                 | Tous les critères couverts, zéro violation a11y bloquante   |
 
 La règle simple à retenir : **l'IA propose, un humain qualifié dispose, à chaque changement de couche.**
 
