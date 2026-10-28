@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 490" width="1040" height="490" role="img" aria-label="Pipeline spec-driven : du besoin métier au frontend">
+<title>Pipeline spec-driven : du besoin métier au frontend</title>
+<defs>
+<marker id="m-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker>
+<marker id="m-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b45309"/></marker>
+</defs>
+<rect width="1040" height="490" fill="#ffffff"/>
+<text x="40" y="36" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#2563eb" text-anchor="start" font-weight="bold">■ Spécification (source de vérité, versionnée)</text>
+<text x="420" y="36" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#6d28d9" text-anchor="start" font-weight="bold">■ Artefact généré par l&#x27;IA</text>
+<text x="660" y="36" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#0f766e" text-anchor="start" font-weight="bold">■ Contrôle automatique</text>
+<text x="850" y="36" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="start" font-weight="bold">◆ Validation humaine</text>
+<rect x="40" y="110" width="200" height="92" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<circle cx="62" cy="132" r="12" fill="#2563eb"/><text x="62" y="137" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">1</text>
+<text x="150.0" y="138" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" fill="#2563eb" text-anchor="middle" font-weight="bold">Besoin métier</text>
+<text x="140.0" y="160" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2937" text-anchor="middle" font-weight="normal">langage naturel</text>
+<text x="140.0" y="185" font-family="Consolas, Menlo, monospace" font-size="12" fill="#6b7280" text-anchor="middle">besoin.md</text>
+<rect x="290" y="110" width="200" height="92" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<circle cx="312" cy="132" r="12" fill="#2563eb"/><text x="312" y="137" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">2</text>
+<text x="400.0" y="138" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" fill="#2563eb" text-anchor="middle" font-weight="bold">Spec fonctionnelle</text>
+<text x="390.0" y="160" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2937" text-anchor="middle" font-weight="normal">stories + critères</text>
+<text x="390.0" y="185" font-family="Consolas, Menlo, monospace" font-size="12" fill="#6b7280" text-anchor="middle">spec.md</text>
+<rect x="540" y="110" width="200" height="92" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<circle cx="562" cy="132" r="12" fill="#2563eb"/><text x="562" y="137" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">3</text>
+<text x="650.0" y="138" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" fill="#2563eb" text-anchor="middle" font-weight="bold">Spec d&#x27;expérience</text>
+<text x="640.0" y="160" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2937" text-anchor="middle" font-weight="normal">parcours, écrans, états</text>
+<text x="640.0" y="185" font-family="Consolas, Menlo, monospace" font-size="12" fill="#6b7280" text-anchor="middle">ux.md</text>
+<rect x="790" y="110" width="200" height="92" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<circle cx="812" cy="132" r="12" fill="#2563eb"/><text x="812" y="137" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">4</text>
+<text x="900.0" y="138" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" fill="#2563eb" text-anchor="middle" font-weight="bold">Design system</text>
+<text x="890.0" y="160" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2937" text-anchor="middle" font-weight="normal">tokens + composants</text>
+<text x="890.0" y="185" font-family="Consolas, Menlo, monospace" font-size="12" fill="#6b7280" text-anchor="middle">tokens.json</text>
+<rect x="790" y="330" width="200" height="92" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.6"/>
+<circle cx="812" cy="352" r="12" fill="#6d28d9"/><text x="812" y="357" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">5</text>
+<text x="900.0" y="358" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" fill="#6d28d9" text-anchor="middle" font-weight="bold">Maquettes</text>
+<text x="890.0" y="380" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2937" text-anchor="middle" font-weight="normal">générées par l&#x27;IA</text>
+<text x="890.0" y="405" font-family="Consolas, Menlo, monospace" font-size="12" fill="#6b7280" text-anchor="middle">maquettes/</text>
+<rect x="540" y="330" width="200" height="92" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+<circle cx="562" cy="352" r="12" fill="#2563eb"/><text x="562" y="357" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">6</text>
+<text x="650.0" y="358" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" fill="#2563eb" text-anchor="middle" font-weight="bold">Plan technique</text>
+<text x="640.0" y="380" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2937" text-anchor="middle" font-weight="normal">archi, contrats, tâches</text>
+<text x="640.0" y="405" font-family="Consolas, Menlo, monospace" font-size="12" fill="#6b7280" text-anchor="middle">plan.md / tasks.md</text>
+<rect x="290" y="330" width="200" height="92" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.6"/>
+<circle cx="312" cy="352" r="12" fill="#6d28d9"/><text x="312" y="357" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">7</text>
+<text x="400.0" y="358" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" fill="#6d28d9" text-anchor="middle" font-weight="bold">Code frontend</text>
+<text x="390.0" y="380" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2937" text-anchor="middle" font-weight="normal">généré par l&#x27;agent</text>
+<text x="390.0" y="405" font-family="Consolas, Menlo, monospace" font-size="12" fill="#6b7280" text-anchor="middle">src/</text>
+<rect x="40" y="330" width="200" height="92" rx="10" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.6"/>
+<circle cx="62" cy="352" r="12" fill="#0f766e"/><text x="62" y="357" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">8</text>
+<text x="150.0" y="358" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" fill="#0f766e" text-anchor="middle" font-weight="bold">Vérification</text>
+<text x="140.0" y="380" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#1f2937" text-anchor="middle" font-weight="normal">tests, a11y, visuel</text>
+<text x="140.0" y="405" font-family="Consolas, Menlo, monospace" font-size="12" fill="#6b7280" text-anchor="middle">CI</text>
+<path d="M240 156.0 L287 156.0" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#m-muted)"/>
+<path d="M490 156.0 L537 156.0" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#m-muted)"/>
+<path d="M740 156.0 L787 156.0" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#m-muted)"/>
+<path d="M890.0 202 L890.0 327" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#m-muted)"/>
+<path d="M790 376.0 L743 376.0" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#m-muted)"/>
+<path d="M540 376.0 L493 376.0" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#m-muted)"/>
+<path d="M290 376.0 L243 376.0" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#m-muted)"/>
+<path d="M515.0 115.0 L530.0 130.0 L515.0 145.0 L500.0 130.0 Z" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+<text x="515.0" y="135.0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="middle" font-weight="bold">✓</text>
+<text x="515.0" y="108.0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="bold">spec validée</text>
+<path d="M890.0 239.0 L905.0 254.0 L890.0 269.0 L875.0 254.0 Z" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+<text x="890.0" y="259.0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="middle" font-weight="bold">✓</text>
+<text x="890.0" y="288.0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="bold">design validé</text>
+<path d="M765.0 335.0 L780.0 350.0 L765.0 365.0 L750.0 350.0 Z" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+<text x="765.0" y="355.0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="middle" font-weight="bold">✓</text>
+<text x="765.0" y="328.0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="bold">maquettes validées</text>
+<path d="M265.0 335.0 L280.0 350.0 L265.0 365.0 L250.0 350.0 Z" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+<text x="265.0" y="355.0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#b45309" text-anchor="middle" font-weight="bold">✓</text>
+<text x="265.0" y="328.0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="11" fill="#b45309" text-anchor="middle" font-weight="bold">revue de code</text>
+<path d="M140.0 422 L140.0 462 L1020 462 L1020 70 L390.0 70 L390.0 107" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#m-amber)"/>
+<rect x="330" y="449" width="380" height="26" rx="13" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+<text x="520" y="467" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#b45309" text-anchor="middle" font-weight="bold">Un écart ? On corrige la spec, puis on régénère.</text>
+</svg>
